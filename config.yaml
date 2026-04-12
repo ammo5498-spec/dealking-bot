@@ -1,0 +1,93 @@
+# ─────────────────────────────────────────────
+#  DealKing Configuration
+# ─────────────────────────────────────────────
+
+# ── Alertes ──────────────────────────────────
+notifications:
+  discord_webhook: ""        # https://discord.com/api/webhooks/XXX/YYY
+  telegram_token: ""         # 123456789:ABCDEF...
+  telegram_chat_id: ""       # -100123456789
+  min_delay_between_alerts: 30   # secondes (anti-spam)
+
+# ── Règles de détection ───────────────────────
+detection:
+  min_discount_pct: 40       # remise minimum pour alerter
+  max_price_eur: 5000        # prix max à surveiller
+  cooldown_minutes: 60       # re-alerter même produit après N min
+
+# ── Performance ───────────────────────────────
+scanner:
+  concurrent_browsers: 10   # navigateurs Playwright en parallèle
+  scans_per_minute: 100     # limite globale de requêtes/min
+  page_timeout_ms: 20000    # timeout chargement page
+  scan_interval_sec: 30     # pause entre cycles complets
+
+# ── Proxies rotatifs (optionnel) ──────────────
+# Laisser vide pour désactiver la rotation de proxies
+proxies:
+  enabled: false
+  rotate_every: 50          # changer de proxy toutes les N requêtes
+  list:
+    # - "http://user:pass@proxy1.example.com:8080"
+    # - "http://user:pass@proxy2.example.com:8080"
+
+# ── Régions Amazon EU ─────────────────────────
+regions:
+  - code: fr
+    domain: amazon.fr
+    flag: "🇫🇷"
+    currency: EUR
+    symbol: "€"
+    locale: fr-FR
+  - code: de
+    domain: amazon.de
+    flag: "🇩🇪"
+    currency: EUR
+    symbol: "€"
+    locale: de-DE
+  - code: es
+    domain: amazon.es
+    flag: "🇪🇸"
+    currency: EUR
+    symbol: "€"
+    locale: es-ES
+  - code: it
+    domain: amazon.it
+    flag: "🇮🇹"
+    currency: EUR
+    symbol: "€"
+    locale: it-IT
+  - code: nl
+    domain: amazon.nl
+    flag: "🇳🇱"
+    currency: EUR
+    symbol: "€"
+    locale: nl-NL
+  - code: pl
+    domain: amazon.pl
+    flag: "🇵🇱"
+    currency: PLN
+    symbol: "zł"
+    locale: pl-PL
+  - code: se
+    domain: amazon.se
+    flag: "🇸🇪"
+    currency: SEK
+    symbol: "kr"
+    locale: sv-SE
+
+# ── Sources supplémentaires ───────────────────
+extra_sources:
+  idealo:
+    enabled: true
+    base_url: "https://www.idealo.fr"
+  jd_sports:
+    enabled: false
+    base_url: "https://www.jdsports.fr"
+
+# ── Logging ───────────────────────────────────
+logging:
+  level: INFO               # DEBUG / INFO / WARNING / ERROR
+  file: logs/dealking.log
+  rotation: "10 MB"
+  retention: "7 days"
